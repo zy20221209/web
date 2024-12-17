@@ -45,7 +45,7 @@ def match_info_from_db(food_name):
     matched_food1, match_score1 = apipei(food_name, df_nutrient['Descrip'])
     matched_food2 = bpipei(food_name, df_glycemic_index['Name'])
     matched_food3 = bpipei(food_name, df_insulin_index['Name'])
-    print("matched_food1：",matched_food1)
+    # print("matched_food1：",matched_food1)
     filtered_df1 = df_nutrient.loc[
         df_nutrient['Descrip'] == matched_food1, ['能量_千卡', '蛋白质_克', '脂肪_克', '碳水化合物_克', '糖_克',
                                                   '纤维_克', '维生素A_微克', '维生素B6_毫克', '维生素B12_微克',
@@ -56,7 +56,7 @@ def match_info_from_db(food_name):
                                                   '维生素C_推荐量', '维生素E_推荐量', '叶酸_推荐量', '烟酸_推荐量',
                                                   '核黄素_推荐量', '硫胺素_推荐量', '钙_推荐量', '铜_推荐量',
                                                   '镁_推荐量', '磷_推荐量', '硒_推荐量', '锌_推荐量']]
-    print("filtered_df1：",filtered_df1)
+    # print("filtered_df1：",filtered_df1)
     filtered_df2 = df_glycemic_index[df_glycemic_index['Name'] == matched_food2]
     filtered_df3 = df_insulin_index[df_insulin_index['Name'] == matched_food3]
     return filtered_df1, filtered_df2, filtered_df3
@@ -82,7 +82,7 @@ def parse_nutri_info(nutri_info):
             row_content.append(nutrient)
             row_content.append(f"{current_value}({unit})")
             row_content.append(recommended_value)
-    print(f"row{rows}")
+    # print(f"row{rows}")
     result_dict = {
         "name": "能量供给",
         "score": 3.5,
@@ -254,10 +254,10 @@ def handle_food_info_get(food_name, user_desc, user_info):
 
     }
     # 打印输出
-    print("output:")
+    # print("output:")
     # 格式编码成json字符串
     # 参数：输出内容，每一层缩进四格，非ASCII
-    print(json.dumps(output, indent=4, ensure_ascii=False))
+    # print(json.dumps(output, indent=4, ensure_ascii=False))
     return output
 
 # 根据用户信息生成用户描述

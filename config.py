@@ -1,0 +1,19 @@
+# 配置相关的
+
+# 数据库的配置信息
+HOSTNAME='127.0.0.1'
+PORT='3306'
+DATABASE='email_try'
+USERNAME='root'
+PASSWORD='Zy123456'
+DB_URI='mysql+pymysql://{}:{}@{}:{}/{}?charset=utf8'.format(USERNAME,PASSWORD,HOSTNAME,PORT,DATABASE)
+SQLALCHEMY_DATABASE_URI=DB_URI
+
+
+# 邮箱配置
+MAIL_SERVER="smtp.qq.com"
+MAIL_PORT=465
+MAIL_USE_SSL=True
+MAIL_USERNAME="3278934211@qq.com"
+MAIL_PASSWORD="eopgxwtmpgrdcjac"
+MAIL_DEFAULT_SENDER="3278934211@qq.com"
