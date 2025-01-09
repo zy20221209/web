@@ -17,3 +17,13 @@ class EmailCaptchaModel(db.Model):
     email=db.Column(db.String(100),nullable=False)
     captcha=db.Column(db.String(100),nullable=False)
     # used=db.Column(db.Boolean,default=False)
+
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(80), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    pub_date = db.Column(db.DateTime, nullable=False,
+                         default=datetime.utcnow)
+
+    def __repr__(self):
+        return f'<Post {self.title}>'

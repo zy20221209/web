@@ -6,7 +6,7 @@ from flask import (
     Flask, request,jsonify,url_for,render_template
 )
 from blueprints import (
-    ai
+    ai,auth,posts
 )
 from flask_migrate import Migrate
 from exts import db,mail
@@ -31,7 +31,8 @@ migrate=Migrate(app,db)
 
 # 注册蓝图
 app.register_blueprint(ai.bp)
-
+app.register_blueprint(auth.bp)
+app.register_blueprint(posts.posts_bp, url_prefix='/api/v1/posts')
 CORS(app) # 启用跨域支持
 
 # 配置上传文件存储路径
