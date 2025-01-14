@@ -7,30 +7,35 @@ import new_chat
 
 bp=Blueprint("ai",__name__,url_prefix="/ai")
 
-@bp.route('/response')
+@bp.route('/response',methods=['POST'])
 def ai():
-    food_name="苹果"
-    user_desc="18岁不健康男性"
-    # 示例用户信息字典
-    user_info = {
-        "gender": "男",
-        "username": "张三峰",
-        "age": "18",
-        "email": "trial-email@163.com",
-        "isPregnant": "否",
-        "PA": "中",
-        "userLabelData": [
-            "高血压患者",
-            "注重精神健康",
-        ],
-        "userLabelCandidates": [
-            "中年人",
-            "糖尿病患者",
-            "高血压患者",
-            "注重精神健康",
-        ]
-    }
-    output=new_chat.handle_food_info_get(food_name, user_desc, user_info)
+    # food_name="苹果"
+    # user_desc="18岁不健康男性"
+
+    food_name = request.form.get('food_name')
+    user_desc = request.form.get('user_desc')
+
+    # # 示例用户信息字典
+    # user_info = {
+    #     "gender": "男",
+    #     "username": "张三峰",
+    #     "age": "18",
+    #     "email": "trial-email@163.com",
+    #     "isPregnant": "否",
+    #     "PA": "中",
+    #     "userLabelData": [
+    #         "高血压患者",
+    #         "注重精神健康",
+    #     ],
+    #     "userLabelCandidates": [
+    #         "中年人",
+    #         "糖尿病患者",
+    #         "高血压患者",
+    #         "注重精神健康",
+    #     ]
+    # }
+    output=new_chat.handle_food_info_get(food_name, user_desc)
+    # output=new_chat.handle_food_info_get(food_name, user_desc，user_info)
     return output
 
 

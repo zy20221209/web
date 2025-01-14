@@ -205,40 +205,43 @@ def ask_llm(food_name, df1, df2, df3, user_desc):
 
 # 处理食物信息获取请求，包括匹配数据库、解析用户信息、计算营养建议，并生成最终的输出
 # 参数：食物名称，对用户的描述，用户信息
-def handle_food_info_get(food_name, user_desc, user_info):
+# def handle_food_info_get(food_name, user_desc, user_info):
+
+def handle_food_info_get(food_name, user_desc):
     filtered_df1, filtered_df2, filtered_df3 = match_info_from_db(food_name)
-    # user_info_parse
-    user_age = user_info["age"]
-    user_gender = user_info["gender"]
-    user_PA = user_info["PA"]
 
-    # Nutri_Info GI II
-    nutri_info_list = filtered_df1.to_dict(orient='records')
-    GI_info_list = filtered_df2['Glycemic index'].tolist()
-    II_info_list = filtered_df3['Insulin index'].tolist()
+    # # user_info_parse
+    # user_age = user_info["age"]
+    # user_gender = user_info["gender"]
+    # user_PA = user_info["PA"]
 
-    # EER
-    age = float(user_age)
-    age_range = get_eer_age_range(age)
-    PAL_MJ, PAL_kcal = pal_info(age_range, user_gender, user_PA)
-    eer_info_list = {
-        "PAL(MJ)": PAL_MJ,
-        "PAL(kcal)": PAL_kcal
-    }
+    # # Nutri_Info GI II
+    # nutri_info_list = filtered_df1.to_dict(orient='records')
+    # GI_info_list = filtered_df2['Glycemic index'].tolist()
+    # II_info_list = filtered_df3['Insulin index'].tolist()
 
-    # PROTEIN
-    age_range = get_protein_fat_age_range(age)
-    EAR, RNI = ear_rni_info(age_range, user_gender)
-    protein_info_list = {
-        "EAR": EAR,
-        "RNI": RNI
-    }
+    # # EER
+    # age = float(user_age)
+    # age_range = get_eer_age_range(age)
+    # PAL_MJ, PAL_kcal = pal_info(age_range, user_gender, user_PA)
+    # eer_info_list = {
+    #     "PAL(MJ)": PAL_MJ,
+    #     "PAL(kcal)": PAL_kcal
+    # }
 
-    # FAT_CARB
-    age_range = get_protein_fat_age_range(age)
-    fat_carb_info_list = carbohydrates_info(age_range)
-    # 参数：用户信息
-    user_desc=gen_user_desc(user_info)
+    # # PROTEIN
+    # age_range = get_protein_fat_age_range(age)
+    # EAR, RNI = ear_rni_info(age_range, user_gender)
+    # protein_info_list = {
+    #     "EAR": EAR,
+    #     "RNI": RNI
+    # }
+
+    # # FAT_CARB
+    # age_range = get_protein_fat_age_range(age)
+    # fat_carb_info_list = carbohydrates_info(age_range)
+    # # 参数：用户信息
+    # user_desc=gen_user_desc(user_info)
 
     content = ask_llm(food_name, filtered_df1, filtered_df2, filtered_df3, user_desc)
 
@@ -247,8 +250,9 @@ def handle_food_info_get(food_name, user_desc, user_info):
     # 输出内容：结果细节，ai回答
     # 结果细节：营养成分信息列表，升糖指数信息列表，胰岛素指数信息列表，能量需要量列表，蛋白质推荐量列表，脂肪碳水推荐量列表
     output = {
-        "result_detail": gen_result_detail(nutri_info_list[0], GI_info_list, II_info_list, eer_info_list,
-                                           protein_info_list, fat_carb_info_list),
+        # "result_detail": gen_result_detail(nutri_info_list[0], GI_info_list, II_info_list, eer_info_list,
+        #                                    protein_info_list, fat_carb_info_list),
+
         # "ai_response": response['message']['content']
         "ai_response": content,
 
@@ -275,27 +279,27 @@ def gen_user_desc(user_info):
 
 
 
-# 示例用户信息字典
-user_info = {
-    "gender": "男",
-    "username": "张三峰",
-    "age": "20",
-    "email": "trial-email@163.com",
-    "isPregnant": "否",
-    "PA": "中",
-    "userLabelData": [
-        "糖尿病患者",
-        "注重精神健康",
-    ],
-    "userLabelCandidates": [
-        "年轻人",
-        "糖尿病患者",
-        "高血压患者",
-        "注重精神健康",
-    ]
-}
-food_name = "香蕉" # 这里应该是从图像识别结果获取
-user_desc = "20岁糖尿病男性"
-handle_food_info_get(food_name, user_desc, user_info)
+# # 示例用户信息字典
+# user_info = {
+#     "gender": "男",
+#     "username": "张三峰",
+#     "age": "20",
+#     "email": "trial-email@163.com",
+#     "isPregnant": "否",
+#     "PA": "中",
+#     "userLabelData": [
+#         "糖尿病患者",
+#         "注重精神健康",
+#     ],
+#     "userLabelCandidates": [
+#         "年轻人",
+#         "糖尿病患者",
+#         "高血压患者",
+#         "注重精神健康",
+#     ]
+# }
+# food_name = "香蕉" # 这里应该是从图像识别结果获取
+# user_desc = "20岁糖尿病男性"
+# handle_food_info_get(food_name, user_desc, user_info)
 
 
